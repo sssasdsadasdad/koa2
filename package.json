@@ -1,0 +1,29 @@
+{
+  "name": "koa2",
+  "version": "1.0.0",
+  "description": "it is koa2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon --inspect -r esm index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.5",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa2": "^2.0.0-alpha.7",
+    "koa2-cors": "^2.0.6",
+    "md5": "^2.2.1",
+    "minimist": "^1.2.0",
+    "mysql": "^2.16.0",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "sha1": "^1.1.1",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
