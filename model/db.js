@@ -1,18 +1,11 @@
 const mysqls = require('mysql');
 
 const {dataBase} = require('../config')
-
- class mysql {
- 	constructor(){
- 		this.pool = mysqls.createPool({
-			host     : '127.0.0.1',
-			user     : 'root',
-			password : 'root',
-			database : 'test'
-
-		});
- 	}
- 	query(sql){
+   class mysql {
+   	constructor(){
+   		this.pool = mysqls.createPool(dataBase);
+   	}
+   	query(sql){
 		return new Promise((resolve, reject) => {
 			this.pool.getConnection((err, connection) => {
 				if(err){
@@ -31,6 +24,6 @@ const {dataBase} = require('../config')
 			})
 		})
 
- 	}
- }
+   	}
+   }
 module.exports = new mysql;

@@ -5,12 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon --inspect -r esm index.js"
+    "server": "nodemon --inspect index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "esm": "^3.2.5",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa2": "^2.0.0-alpha.7",

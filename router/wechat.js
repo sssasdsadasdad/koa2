@@ -30,10 +30,17 @@ const checkSignature = (q) => {
 }
 
 const access_token = () => {
-	request({
-		uri: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx1299b7bcc960dd8f&secret=5b6ecde3663891b2ecfe638215836676',
-		type: 'GET',
-		encoding: null
+	return new Promise((resolve, reject) => {
+		request({
+			uri: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx1299b7bcc960dd8f&secret=5b6ecde3663891b2ecfe638215836676',
+			type: 'GET',
+			encoding: null
+		}, (err, response, body) => {
+			if(err) {
+				return reject(err)
+			}
+			return resolve(body)
+		})
 	})
 }
 //  ========== 
@@ -41,12 +48,59 @@ const access_token = () => {
 //  ========== 
 
 route.post('/createMenu', async(ctx, next) => {
-	await request({
-		uri: 'https://api.weixin.qq.com/cgi-bin/menu/create',
-		type: 'POST',
-		encoding: null
-	}, () => {
+	let m =  {
+     "button":[
+     {    
+          "type":"click",
+          "name":"今日歌曲",
+          "key":"V1001_TODAY_MUSIC"
+      },
+      {
+           "name":"菜单",
+           "sub_button":[
+           {    
+               "type":"view",
+               "name":"搜索",
+               "url":"http://www.soso.com/"
+            },
+            {
+                 "type":"miniprogram",
+                 "name":"wxa",
+                 "url":"http://mp.weixin.qq.com",
+                 "appid":"wx286b93c14bbf93aa",
+                 "pagepath":"pages/lunar/index"
+             },
+            {
+               "type":"click",
+               "name":"赞一下我们",
+               "key":"V1001_GOOD"
+            }]
+       }]
+ }
+	var token
+	await access_token().then(async res => {
 		
+		token = JSON.parse(res.toString('utf-8')).access_token
 	})
+	let url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + token;
+	await request({
+		url: url,
+    method: "POST",
+    json: true,
+    headers: {
+        "content-type": "application/json",
+    },
+    body: m
+	}, (e, r, b) => {
+		console.log(b)
+		return ctx.response.body = b.toString('utf-8')
+		})
+//	await request({
+//		uri: 'https://api.weixin.qq.com/cgi-bin/menu/create',
+//		type: 'POST',
+//		encoding: null
+//	}, () => {
+//		
+//	})
 })
 module.exports = route;

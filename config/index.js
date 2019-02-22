@@ -1,13 +1,9 @@
 var minimist = require('minimist');
 
-let product = minimist(process.argv.slice(2)).hasOwnProperty('product') ? true : false;
-let config = {}
-
-if(product) {
-	config = () => import('./product')
+const isProduct = minimist(process.argv.slice(2)).hasOwnProperty('product') ? true : false;
+if(isProduct){
+	module.exports = require('./product')
 } else {
-	config = () => import('./product')
+	module.exports = require('./develop')
+	
 }
-config().then(res => {
-	module.exports = res
-})

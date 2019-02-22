@@ -1,7 +1,6 @@
 //  ========== 
 //  = 生产模式配置文件 = 
 //  ========== 
-
 module.exports = {
 	dataBase: {
 			host     : 'localhost',
